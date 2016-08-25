@@ -1,7 +1,7 @@
 [[arbitration-rules]]
 == Arbitration Rules
 
-Arbitration rules are made available via the following collection:
+Arbitration rules are available via the following collection:
 
 [source,data]
 ----

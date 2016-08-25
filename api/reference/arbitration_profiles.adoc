@@ -1,0 +1,146 @@
+[[arbitration-profiles]]
+== Arbitration Profiles
+
+Arbitration profiles are available via the following collection:
+
+[source,data]
+----
+/api/arbitration_profiles
+----
+
+Full CRUD actions on arbitration profiles are available:
+* link:#querying-arbitration-profiles[Querying Arbitration Profiles]
+* link:#creating-arbitration-profiles[Creating Arbitration Profiles]
+* link:#editing-arbitration-profiles[Editing Arbitration Profiles]
+* link:#deleting-arbitration-profiles[Deleting Arbitration Profiles]
+
+[[querying-arbitration-profiles]]
+=== Querying Arbitration Profiles
+
+Querying all arbitration profiles in the system:
+----
+GET /api/arbitration_profiles
+----
+
+Getting details on a specific arbitration profile:
+
+----
+GET /api/arbitration_profiles/:id
+----
+
+[[creating-arbitration-profiles]]
+==== Creating Arbitration Profiles
+
+Arbitration Profiles can be created via a POST to the arbitration profiles
+collection or via the *create* action signature which allows the creation of
+multiple arbitration profiles in a single request.
+
+As an example:
+[source,json]
+----
+{
+  "name"                : "An arbitration profile",
+  "description"         : "This is an arbitration profile",
+  "ems_id"              : 2,
+  "flavor_id"           : 4,
+  "cloud_network_id"    : 6,
+  "cloud_subnet_id"     : 8,
+  "security_group_id"   : 10,
+  "authentication_id"   : 12,
+  "availability_zone_id": 14
+}
+----
+
+Or creating multiple:
+
+[source,json]
+----
+{
+  "action": "create",
+  "resources" : [
+    { "name" : "Arbitration Profile 1", ... },
+    { "name" : "Arbitration Profile 2", ... }
+  ]
+}
+----
+
+[[editing-arbitration-profiles]]
+=== Editing Arbitration Profiles
+
+----
+POST /api/arbitration_profiles/:id
+----
+
+[source,json]
+----
+{
+  "action" : "edit",
+  "resource" : {
+    "description" : "an updated description"
+  }
+}
+----
+
+or editing multiple arbitration profiles:
+
+----
+POST /api/arbitration_profiles
+----
+
+[source,json]
+----
+{
+  "action" : "edit",
+  "resources": [
+    {
+      "href" : "http://localhost:3000/api/arbitration_profiles/101",
+      "description" : "Updated description 1"
+    },
+    {
+      "href" : "http://localhost:3000/api/arbitration_profiles/102",
+      "description" : "Updated description 2"
+    },
+    ...
+  ]
+}
+----
+
+[[deleting-arbitration-profiles]]
+=== Deleting Arbitration Profiles
+
+Arbitration profiles can be deleted via the *delete* POST action or
+via the _DELETE HTTP_ method
+
+----
+POST /api/arbitration_profiles/101
+----
+
+[source,json]
+----
+{
+  "action" : "delete"
+}
+----
+
+or:
+
+----
+DELETE /api/arbitration_profiles/101
+----
+
+To delete multiple:
+
+----
+POST /api/arbitration_profiles
+----
+
+[source,json]
+----
+{
+  "action": "delete",
+  "resources" : [
+    { "href" : "http://localhost:3000/api/arbitration_profiles/101" },
+    { "href" : "http://localhost:3000/api/arbitration_profiles/102" }
+  ]
+}
+----
