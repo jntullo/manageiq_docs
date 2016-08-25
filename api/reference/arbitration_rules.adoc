@@ -49,13 +49,19 @@ As an example:
       "field" : "User-userid",
       "value" : "admin"
     }
-  }
+  },
+  "arbitration_profile_id": 101
 }
 ----
 
 = Operations
 The following are the allowed values for the _operation_ field:
 `inject`, `disable_engine`, `auto_reject`, `require_approval`, `auto_approve`
+
+[NOTE]
+=====
+if the operation is `inject`, an `arbitration_profile_id` is required.
+=====
 
 = Expression
 The passed _expression_ field is stored as a serialized MiqExpression and requires
