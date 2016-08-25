@@ -1,0 +1,165 @@
+[[arbitration-rules]]
+== Arbitration Rules
+
+Arbitration rules are made available via the following collection:
+
+[source,data]
+----
+/api/arbitration_rules
+----
+
+Full CRUD actions on arbitration rules are available:
+
+* link:#querying-arbitration-rules[Querying Arbitration Rules]
+* link:#creating-arbitration-rules[Creating Arbitration Rules]
+* link:#editing-arbitration-rules[Editing Arbitration Rules]
+* link:#deleting-arbitration-rules[Deleting Arbitration Rules]
+
+[[querying-arbitration-rules]]
+=== Querying Arbitration Rules
+
+Querying all arbitration rules in the system:
+
+----
+GET /api/arbitration_rules
+----
+
+Getting details on a specific arbitration rule:
+
+----
+GET /api/arbitration_rules/:id
+----
+
+
+[[creating-arbitration-rules]]
+=== Creating Arbitration Rules
+
+Arbitration Rules can be created via a POST to the arbitration rules collection
+or via the *create* action signature which allows creation of multiple
+arbitration rules in a single request.
+
+As an example:
+[source,json]
+----
+{
+  "name"        : "A rule for admins",
+  "operation"   : "inject",
+  "expression"  : {
+    "EQUAL" : {
+      "field" : "User-userid",
+      "value" : "admin"
+    }
+  }
+}
+----
+
+= Operations
+The following are the allowed values for the _operation_ field:
+`inject`, `disable_engine`, `auto_reject`, `require_approval`, `auto_approve`
+
+= Expression
+The passed _expression_ field is stored as a serialized MiqExpression and requires
+the following format:
+[source,json]
+----
+{
+  "<Operator>": {
+    "field" : "<ObjectType>-<ObjectAttribute>",
+    "value" : "<ValueOfAttribute>"
+  }
+}
+----
+
+The _operator_ allows the following:
+`EQUAL`, `=`, `!=`, `like`, `not like`, `<`, `<=`, `>`, `>=`
+
+The following example would create a rule to check wither a User object's attribute `userid` is equal to `admin`
+[source,json]
+----
+{
+  "expression" : {
+    "EQUAL" : {
+      "field" : "User-userid",
+      "value" : "admin"
+    }
+  }
+}
+----
+
+=== Editing Arbitration Rules
+The API allows for editing one:
+----
+POST /api/arbitration_rules/:id
+----
+
+[source,json]
+----
+{
+  "action" : "edit",
+  "resource" : {
+    "name": "Updated Arbitration Rule name"
+  }
+}
+----
+
+or editing multiple arbitration rules:
+
+----
+POST /api/arbitration_rules
+----
+
+[source,json]
+----
+{
+  "action": "edit",
+  "resources" : [
+    {
+      "href": "http://localhost:3000/api/arbitration_rules/101",
+      "name": "a new name1"
+    },
+    {
+      "href": "http://localhost:3000/api/arbitration_rules/201",
+      "name": "a new name2"
+    }
+  ]
+}
+----
+
+[[deleting-arbitration-rules]]
+=== Deleting Arbitration Rules
+
+Arbitration Rules can be deleted via the *delete* _POST_ action or via the _DELETE HTTP_ method.
+
+----
+POST /api/arbitration_rules/101
+----
+
+[source,json]
+----
+{
+  "action": "delete
+}
+----
+
+or
+
+----
+DELETE /api/arbitration_rules/101
+----
+
+To delete multiple arbitration rules:
+
+----
+POST /api/arbitration_rules
+----
+
+[source,json]
+----
+{
+  "action": "delete",
+  "resources" : [
+    { "href" : "http://localhost:3000/api/arbitration_rules/101" },
+    { "href" : "http://localhost:3000/api/arbitration_rules/102" }
+  ]
+}
+----
