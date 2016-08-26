@@ -42,7 +42,6 @@ As an example:
 [source,json]
 ----
 {
-  "name"        : "A rule for admins",
   "operation"   : "inject",
   "expression"  : {
     "EQUAL" : {
@@ -103,7 +102,7 @@ POST /api/arbitration_rules/:id
 {
   "action" : "edit",
   "resource" : {
-    "name": "Updated Arbitration Rule name"
+    "description": "Updated Arbitration Rule description"
   }
 }
 ----
@@ -121,11 +120,11 @@ POST /api/arbitration_rules
   "resources" : [
     {
       "href": "http://localhost:3000/api/arbitration_rules/101",
-      "name": "a new name1"
+      "description": "a new description"
     },
     {
       "href": "http://localhost:3000/api/arbitration_rules/201",
-      "name": "a new name2"
+      "description": "a new description"
     }
   ]
 }
